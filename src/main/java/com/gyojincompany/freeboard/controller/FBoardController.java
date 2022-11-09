@@ -11,6 +11,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.SessionAttributes;
 
 import com.gyojincompany.freeboard.dao.mapper.IDao;
 import com.gyojincompany.freeboard.dto.MemberDto;
@@ -120,7 +121,8 @@ public class FBoardController {
 
 		String sid = (String) session.getAttribute("sessionId");
 		
-		if(sid.equals(null)) {
+				
+		if(sid==null) {
 			return "redirect:login";
 		}else {
 		MemberDto dto = dao.memberInfoDao(sid); 
@@ -161,6 +163,19 @@ public class FBoardController {
 		return "redirect:list";
 	}
 	
+	@RequestMapping(value = "logout")
+	public String logout(HttpServletRequest request) {
+		
+		HttpSession session = request.getSession(); //리퀘스트 객체안의 세션을 불러온다
+		
+		session.invalidate(); //저장된 세션 없애기!!!
+		
+		return "logout";
+	} 
 	
-	
+	@RequestMapping(value = "/")
+	public String Home() {
+		
+		return "redirect:login";
+	}
 }
