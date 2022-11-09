@@ -20,7 +20,7 @@
 		}else if(checkPw == 0) {
 	%>
 		
-			<script language="JavaScript">
+		<script language="JavaScript">
 			alert("비밀번호가 맞지 않습니다. 다시입력해주세요");
 			history.go(-1);
 		</script>
@@ -30,5 +30,6 @@
 	
 	<h2>로그인이 성공하셨습니다 .</h2>
 	<h2>${mid}님 반갑습니다.</h2>
+	<h2>회원 이름: ${mname }님 </h2>
 </body>
 </html>
