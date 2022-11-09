@@ -5,6 +5,8 @@
 	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 	
 <mapper namespace="com.gyojincompany.freeboard.dao.mapper.IDao">
+	
+	<!-- 회원관리 SQL -->
 	<insert id="joinMemberDao">
 		insert into member(mid, mpw, mname, memail) values(#{param1}, #{param2},#{param3},#{param4})
 	</insert>
@@ -19,4 +21,11 @@
 		select * from member where mid=#{param1}
 	</select>
 
+	<!-- 게시판 관리 SQL -->
+	<insert id="writeDao">
+		INSERT INTO freeboard(fnum, fid, fname, ftitle, fcontent,fhit) 
+		VALUES (freeboard_seq.nextval, #{param1}, #{param2},#{param3},#{param4},0)  
+													<!-- 메서드에서 들어오는 인자값 순서확인 -->
+	</insert>	
+	
 </mapper>

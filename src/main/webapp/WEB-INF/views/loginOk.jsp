@@ -30,6 +30,7 @@
 	
 	<h2>로그인이 성공하셨습니다 .</h2>
 	<h2>${mid}님 반갑습니다.</h2>
-	<h2>회원 이름: ${mname }님 </h2>
+	<h2>회원 이름: ${mname }님 </h2><br>
+	<a href="writeForm">글쓰기</a>
 </body>
 </html>

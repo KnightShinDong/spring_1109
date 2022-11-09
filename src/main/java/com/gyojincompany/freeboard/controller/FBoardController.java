@@ -1,5 +1,7 @@
 package com.gyojincompany.freeboard.controller;
 
+import java.lang.ProcessBuilder.Redirect;
+
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
@@ -110,6 +112,55 @@ public class FBoardController {
 			
 		return "loginOk";
 	}
+	
+	@RequestMapping(value = "writeForm")
+	public String writeForm(HttpServletRequest request,Model model ) {
+		IDao dao = sqlSession.getMapper(IDao.class);
+		HttpSession session = request.getSession(); //리퀘스트 객체안의 세션을 불러온다
+
+		String sid = (String) session.getAttribute("sessionId");
+		
+		if(sid.equals(null)) {
+			return "redirect:login";
+		}else {
+		MemberDto dto = dao.memberInfoDao(sid); 
+		String mname = dto.getMname();
+		String mid = dto.getMid();
+		model.addAttribute("mname",mname); // 로그인 성공시 이름
+		model.addAttribute("mid",mid); // 로그인 성공시 이름
+		
+		return "writeForm";
+		}
+	}
+	
+	@RequestMapping(value = "write")
+	public String write(HttpServletRequest request) {
+		IDao dao = sqlSession.getMapper(IDao.class);
+		
+		HttpSession session = request.getSession(); //리퀘스트 객체안의 세션을 불러온다
+		
+		String sid = (String) session.getAttribute("sessionId");
+//		String mname="";
+//		String mid="";
+//		if(sid.equals(null)) {
+//			mname="손님";
+//			mid="guest";
+//		}else {
+//		
+		MemberDto dto = dao.memberInfoDao(sid); 
+		String mname = dto.getMname();
+		String mid = dto.getMid();
+		//writeForm의 ${} 값은 리퀘스트로 불러올수 없기때문에
+		//세션에 있는 아이디와 이름을 불러와야 한다
+//		}
+		String ftitle = request.getParameter("ftitle");
+		String fcontent = request.getParameter("fcontent");
+		
+		dao.writeDao(mid, mname, ftitle, fcontent);
+		
+		return "redirect:list";
+	}
+	
 	
 	
 }
