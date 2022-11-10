@@ -20,6 +20,10 @@
 									<!-- 반환타입이 memberDto이고 패키지 명까지 같이 삽입해야함 -->
 		select * from member where mid=#{param1}
 	</select>
+	<delete id="memberOutDao">
+		 DELETE FROM member WHERE mid=#{param1}
+	</delete>
+	
 
 	<!-- 게시판 관리 SQL -->
 	<insert id="writeDao">

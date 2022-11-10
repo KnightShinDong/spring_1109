@@ -33,6 +33,7 @@
 	<h2>회원 이름: ${mname }님 </h2><br>
 	<a href="list">게시판가기</a><br><br>
 	<a href="writeForm">글쓰기</a><br><br>
-	<a href="logout">로그아웃</a>
+	<a href="logout">로그아웃</a><br><br>
+	<a href="memberOut">회원탈퇴</a>
 </body>
 </html>

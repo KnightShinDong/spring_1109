@@ -33,6 +33,7 @@
 		
 		<tr>
 			<td colspan="6" align="right"><a href = "writeForm">글쓰기</a></td>
+			
 		</tr>	
 		
 	</table>

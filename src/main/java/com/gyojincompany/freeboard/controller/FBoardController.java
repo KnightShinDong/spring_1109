@@ -242,4 +242,20 @@ public class FBoardController {
 		
 		return "mview";
 	}
+	
+	@RequestMapping(value = "memberOut")
+	public String memberOut(HttpServletRequest request) {
+		
+		IDao dao = sqlSession.getMapper(IDao.class);
+		HttpSession session = request.getSession(); //리퀘스트 객체안의 세션을 불러온다
+		
+		String sid = (String) session.getAttribute("sessionId");
+		
+		
+		 dao.memberOutDao(sid); 
+	
+		return "memberOut";
+	}
+	
+
 }
