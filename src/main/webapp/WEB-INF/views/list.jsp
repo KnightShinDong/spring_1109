@@ -25,7 +25,7 @@
 			<td>${fbdto.fnum }</td>
 			<td>${fbdto.fid }</td>
 			<td>${fbdto.fname }</td>
-			<td>${fbdto.ftitle }</td>
+			<td><a href="contentView?fnum=${fbdto.fnum }" > ${fbdto.ftitle }</a></td>
 			<td>${fbdto.fhit }</td>
 			<td>${fbdto.fdate }</td>	
 		</tr>

@@ -13,6 +13,11 @@ public interface IDao {
 	public MemberDto memberInfoDao(String mid);//가입된 회원정보를 불러옴
 	
 	//board 관련 메서드
-	public void writeDao(String mid, String mname, String ftitle, String fcontent);
-	public ArrayList<FreeBoardDto> listDao();
+	public void writeDao(String mid, String mname, String ftitle, String fcontent);//게시판에 글쓰기
+	public ArrayList<FreeBoardDto> listDao();//게시판 리스트 불러오기
+	public FreeBoardDto contentViewDao(String fnum); //글 내용 보기(클릭한 번호의 글 1개 불러오기)
+	public void deleteDao(String fnum);
+	public void modifyDao(String ftitle, String fcontentg,String fnum);
+	public void fhitDao(String fnum);
+	
 }

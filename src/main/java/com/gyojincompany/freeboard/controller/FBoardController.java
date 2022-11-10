@@ -1,6 +1,8 @@
 package com.gyojincompany.freeboard.controller;
 
 import java.lang.ProcessBuilder.Redirect;
+import java.util.ArrayList;
+import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
@@ -14,7 +16,10 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.SessionAttributes;
 
 import com.gyojincompany.freeboard.dao.mapper.IDao;
+import com.gyojincompany.freeboard.dto.FreeBoardDto;
 import com.gyojincompany.freeboard.dto.MemberDto;
+
+
 
 @Controller
 public class FBoardController {
@@ -177,5 +182,64 @@ public class FBoardController {
 	public String Home() {
 		
 		return "redirect:login";
+	}
+	
+	@RequestMapping(value = "list")
+	public String list(Model model) {
+		IDao dao = sqlSession.getMapper(IDao.class);
+		
+		ArrayList<FreeBoardDto> dtos = dao.listDao();
+		model.addAttribute("list", dtos);
+		return "list";
+	}
+	
+	@RequestMapping(value = "contentView")
+	public String contentView(HttpServletRequest request, Model model) {
+		
+		IDao dao = sqlSession.getMapper(IDao.class);
+		
+		String fnum =request.getParameter("fnum");
+		FreeBoardDto dtos  = dao.contentViewDao(fnum); 
+				
+		dao.fhitDao(fnum);
+		model.addAttribute("content", dtos);
+		
+		return "contentView";
+	}
+	
+	@RequestMapping(value = "delete")
+	public String delete(HttpServletRequest request) {
+		IDao dao = sqlSession.getMapper(IDao.class);
+		String fnum =  request.getParameter("fnum");
+		dao.deleteDao(fnum);
+		
+		return "redirect:list";
+	}
+	@RequestMapping(value = "modify")
+	public String modify(HttpServletRequest request) {
+		IDao dao = sqlSession.getMapper(IDao.class);
+		String fnum = request.getParameter("fnum");
+		String ftitle = request.getParameter("ftitle");
+		String fcontent = request.getParameter("fcontent");
+		
+		dao.modifyDao(ftitle, fcontent,fnum);
+		
+		
+		return "redirect:list";
+	}
+	
+	@RequestMapping(value = "mview")
+	public String mview(HttpServletRequest request, Model model) {
+		
+		IDao dao = sqlSession.getMapper(IDao.class);
+		
+		String fnum =request.getParameter("fnum");
+		FreeBoardDto dtos  = dao.contentViewDao(fnum); 
+				
+		
+		model.addAttribute("content", dtos);
+		
+		
+		return "mview";
 	}
 }
